@@ -13,7 +13,7 @@ module.exports = {
         loader: 'babel-loader',
         include: __dirname,
         query: {
-          presets: ['react', 'es2015', 'react-hmre']
+          presets: ['react', 'es2015', 'stage-0', 'react-hmre']
         }
       }
     ]

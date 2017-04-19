@@ -2,9 +2,9 @@
   "name": "Picturemap",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "bundle.js",
   "scripts": {
-    "start": "webpack-dev-server --progress --inline --hot",
+    "start": "./node_modules/.bin/webpack-dev-server --progress --inline --hot",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Sam Linnett",
@@ -23,6 +23,7 @@
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "babel-preset-react-hmre": "^1.1.1",
+    "babel-preset-stage-0": "^6.24.1",
     "webpack": "^2.4.1",
     "webpack-dev-server": "^2.4.2"
   }
