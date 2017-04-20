@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import GoogleMapReact from 'google-map-react';
 import { fitBounds } from 'google-map-react/utils';
 import Marker from './Marker';
+import mapStyles from './mapStyles';
 
 class Gmap extends Component {
   static propTypes = {
@@ -15,24 +16,22 @@ class Gmap extends Component {
     center: [6.2442, -75.5812],
     zoom: 1,
     markers: [
-      {text: 'Test 1', lat: 6.2442, lng: -75.4812},
-      {text: 'Test 2', lat: 6.3442, lng: -75.5512},
-      {text: 'Test 3', lat: 6.4442, lng: -75.6912}
+      {imgPath: 'images/Bog1.jpg', lat: 4.5981, lng: -74.0767},
+      {imgPath: 'images/Bra1.jpg', lat: -25.6886, lng: -54.4391},
+      {imgPath: 'images/Buz1.jpg', lat: -22.7817, lng: -41.9002},
+      {imgPath: 'images/Cart1.jpg', lat: 10.4206, lng: -75.5479},
+      {imgPath: 'images/Cord1.jpg', lat: -31.4234, lng: -64.1862},
+      {imgPath: 'images/Flor1.jpg', lat: -27.575, lng: -48.4207}
     ]
   };
 
-  constructor() {
-    super();
-
-    this.state = {
-      center: [6.2442, -75.5812],
-      zoom: 1,
-      activeMarker: ''
-    };
-  }
+  state = {
+    center: [6.2442, -75.5812],
+    zoom: 1,
+    activeMarker: ''
+  };
 
   setBounds() {
-    // Set lng/lat max/min
     const latMax = Math.max(...this.props.markers.map(val => val.lat));
     const latMin = Math.min(...this.props.markers.map(val => val.lat));
     const lngMax = Math.max(...this.props.markers.map(val => val.lng));
@@ -62,6 +61,14 @@ class Gmap extends Component {
     })
   }
 
+  createMapOptions() {
+    return {
+      panControl: true,
+      mapTypeControl: false,
+      styles: mapStyles
+    }
+  }
+
   componentDidMount() {
     this.setBounds();
   }
@@ -86,10 +93,10 @@ class Gmap extends Component {
   render() {
     const markers = this.props.markers
       .map((marker, i) => {
-        const {text, ...coords} = marker;
+        const {imgPath, ...coords} = marker;
 
         return (
-          <Marker key={i} text={text} {...coords} />
+          <Marker key={i} imgPath={imgPath} {...coords} />
         );
       });
 
@@ -102,6 +109,7 @@ class Gmap extends Component {
           onChildClick={this._onChildClick}
           onChildMouseEnter={this._onChildMouseEnter}
           onChildMouseLeave={this._onChildMouseLeave}
+          options={this.createMapOptions}
         >
           {markers}
         </GoogleMapReact>
