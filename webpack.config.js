@@ -5,6 +5,7 @@ module.exports = {
     filename: "bundle.js",
     publicPath: "/static/"
   },
+  devtool: 'source-map',
   module: {
     rules: [
       {
@@ -18,13 +19,7 @@ module.exports = {
       },
       {
         test: /\.scss$/,
-        use: [{
-          loader: "style-loader" // creates style nodes from JS strings
-        }, {
-          loader: "css-loader" // translates CSS into CommonJS
-        }, {
-          loader: "sass-loader" // compiles Sass to CSS
-        }]
+        loaders: ['style-loader', 'css-loader', 'sass-loader']
       }
     ]
   }

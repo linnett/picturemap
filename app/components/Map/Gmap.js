@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import GoogleMapReact from 'google-map-react';
 import { fitBounds } from 'google-map-react/utils';
 import Marker from './Marker';
-import mapStyles from './mapStyles';
+import mapStyles from './GmapStyles';
+import './Gmap.scss';
 
 class Gmap extends Component {
   static propTypes = {
@@ -13,6 +14,7 @@ class Gmap extends Component {
   };
 
   static defaultProps = {
+    class: 'gmap__wrap',
     center: [6.2442, -75.5812],
     zoom: 1,
     markers: [
@@ -26,10 +28,17 @@ class Gmap extends Component {
   };
 
   state = {
-    center: [6.2442, -75.5812],
-    zoom: 1,
+    markers: [],
+    center: [],
+    zoom: 0,
     activeMarker: ''
   };
+
+  constructor(props) {
+    super(props);
+
+
+  }
 
   setBounds() {
     const latMax = Math.max(...this.props.markers.map(val => val.lat));
@@ -49,8 +58,8 @@ class Gmap extends Component {
     };
 
     const size = {
-      width: document.querySelector('.gmap__wrap').offsetWidth, // Map width in pixels
-      height: document.querySelector('.gmap__wrap').offsetHeight, // Map height in pixels
+      width: document.querySelector(`.${this.props.class}`).offsetWidth,
+      height: document.querySelector(`.${this.props.class}`).offsetHeight,
     };
 
     const {center, zoom} = fitBounds(bounds, size);
@@ -59,6 +68,21 @@ class Gmap extends Component {
       center: center,
       zoom: zoom
     })
+  }
+
+  setMarkers() {
+    const markers = this.props.markers
+      .map((marker, i) => {
+        const {imgPath, ...coords} = marker;
+
+        return (
+          <Marker key={i} imgPath={imgPath} {...coords} />
+        );
+      });
+
+    this.setState({
+      markers: markers
+    });
   }
 
   createMapOptions() {
@@ -70,7 +94,10 @@ class Gmap extends Component {
   }
 
   componentDidMount() {
+    // TODO: Render map wrap before for size, then set bounds in Constructor when
+    // map is loaded
     this.setBounds();
+    this.setMarkers();
   }
 
   _onChange({center, zoom, bounds, ...other}) {
@@ -91,17 +118,8 @@ class Gmap extends Component {
   }
 
   render() {
-    const markers = this.props.markers
-      .map((marker, i) => {
-        const {imgPath, ...coords} = marker;
-
-        return (
-          <Marker key={i} imgPath={imgPath} {...coords} />
-        );
-      });
-
     return (
-      <div className="gmap__wrap" style={{position: 'absolute', width: '100%', height: '100%'}}>
+      <div className={this.props.class}>
         <GoogleMapReact
           center={this.state.center}
           zoom={this.state.zoom}
@@ -111,7 +129,7 @@ class Gmap extends Component {
           onChildMouseLeave={this._onChildMouseLeave}
           options={this.createMapOptions}
         >
-          {markers}
+          {this.state.markers}
         </GoogleMapReact>
       </div>
     );

@@ -1,0 +1,28 @@
+.gmaps__marker {
+  background: #fff;
+  display: inline-block;
+  border-radius: 18px 18px 18px 0;
+  width: 26px;
+  height: 26px;
+  border: 6px solid #EA2212;
+  transform: rotate(-45deg);
+  position: relative;
+  box-shadow: -1px 1px 2px rgba(0,0,0,.2);
+  left: -13px;
+  top: -13px;
+  position: absolute;
+  cursor: pointer;
+}
+
+.gmaps__marker--animate {
+  animation: 0.3s ease-in 0s 1 dropIn;
+}
+
+@keyframes dropIn {
+  0% {
+    transform: translate3d(0px,-100px,0px) rotate(-45deg);
+  }
+  100% {
+    transform: translate3d(0px,0px,0px) rotate(-45deg);
+  }
+}
