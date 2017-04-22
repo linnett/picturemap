@@ -1,8 +1,8 @@
 import React from 'react';
 import { Route } from 'react-router';
-import Gmap from '../components/Gmap';
+import Main from '../components/Main';
 
 export default (
-  <Route path="/" component={Gmap}>
+  <Route path="/" component={Main}>
   </Route>
 );
