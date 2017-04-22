@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import Gmap from './Map/Gmap';
+import './Main.scss';
 
 class Main extends Component {
   render() {
@@ -7,9 +9,9 @@ class Main extends Component {
         <div className="gmap">
           <Gmap />
         </div>
-        <div className="sidebar">
-
-        </div>
+        <aside className="sidebar">
+          <h4>SIDEBAR</h4>
+        </aside>
       </main>
     );
   }

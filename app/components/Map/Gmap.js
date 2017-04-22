@@ -94,8 +94,6 @@ class Gmap extends Component {
   }
 
   componentDidMount() {
-    // TODO: Render map wrap before for size, then set bounds in Constructor when
-    // map is loaded
     this.setBounds();
     this.setMarkers();
   }
